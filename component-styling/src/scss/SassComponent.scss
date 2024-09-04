@@ -1,0 +1,61 @@
+@import './utils.scss';
+
+// 클래스의 스타일 작성
+.SassComponent {
+    display: flex;
+
+    // SassComponent 클래스의 자손 태그중 box 클래스를 가지고 있는 태그에 대한 스타일 정의
+    .box {
+        background-color: $red;
+        cursor: pointer;
+        transition: all 0.3s ease-in;
+
+        // box클래스와 red클래스를 모두 가지고 있는 태그에 대한 스타일 지정
+        &.red {
+            background-color: $red;
+            // 믹스인 사용
+            @include square(1);
+        }
+
+        &.green {
+            background-color: $green;
+            // 믹스인 사용
+            @include square(2);
+        }
+
+        &.orange {
+            background-color: $orange;
+            // 믹스인 사용
+            @include square(3);
+        }
+
+        &.blue {
+            background-color: $blue;
+            // 믹스인 사용
+            @include square(4);
+        }
+
+        &.yellow {
+            background-color: $yellow;
+            // 믹스인 사용
+            @include square(5);
+        }
+
+        &.indigo {
+            background-color: $indigo;
+            // 믹스인 사용
+            @include square(6);
+        }
+
+        &.violet {
+            background-color: $violet;
+            // 믹스인 사용
+            @include square(7);
+        }
+
+        // box 클래스의 태그에 호버가 발생했을 때의 스타일 지정
+        &:hover {
+            background-color: black;
+        }
+    }
+}

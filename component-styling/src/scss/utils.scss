@@ -1,0 +1,15 @@
+// 변수 선언
+$red: red;
+$green: green;
+$orange: orange;
+$yellow: yellow;
+$blue: blue;
+$indigo: indigo;
+$violet: violet;
+
+// 믹스인 생성(믹스인: 재사용되는 스타일 블록을 메소드처럼 사용하는 것)
+@mixin square($size){
+    $calculated: 32px * $size;
+    width: $calculated;
+    height: $calculated;
+}

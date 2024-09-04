@@ -1,0 +1,25 @@
+.wrapper {
+    background: black;
+    padding: 1rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.inverted {
+    color: black;
+    background: white;
+    border: 1px solid black;
+}
+
+/*
+    전역으로 사용할 클래스 스타일 지정
+    :global 키워드를 사용하여 스타일을 지정하면 되고
+    컴포넌트에서 사용할 때 import 구문 없이도 사용되고
+    style 변수없이도 사용할 수 있다.
+*/
+:global .text {
+    font-weight: bold;
+    color: red;
+    font-size: 3rem;
+
+}
