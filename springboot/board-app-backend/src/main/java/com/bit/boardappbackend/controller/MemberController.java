@@ -2,18 +2,16 @@ package com.bit.boardappbackend.controller;
 
 import com.bit.boardappbackend.dto.MemberDto;
 import com.bit.boardappbackend.dto.ResponseDto;
-import com.bit.boardappbackend.entity.Member;
 import com.bit.boardappbackend.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -23,7 +21,7 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("username-check")
+    @PostMapping("/username-check")
     public ResponseEntity<?> usernameCheck(@RequestBody MemberDto memberDto) {
         ResponseDto<Map<String, String>> responseDto = new ResponseDto<>();
 
@@ -44,7 +42,7 @@ public class MemberController {
         }
     }
 
-    @PostMapping("nickname-check")
+    @PostMapping("/nickname-check")
     public ResponseEntity<?> nicknameCheck(@RequestBody MemberDto memberDto) {
         ResponseDto<Map<String, String>> responseDto = new ResponseDto<>();
 
@@ -77,9 +75,8 @@ public class MemberController {
             responseDto.setStatusMessage("created");
             responseDto.setItem(joinedMemberDto);
 
-            log.debug("responseDto: {}", responseDto.toString());
             return ResponseEntity.ok(responseDto);
-        } catch(Exception e){
+        } catch (Exception e) {
             log.error("join error: {}", e.getMessage());
             responseDto.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
             responseDto.setStatusMessage(e.getMessage());
@@ -88,7 +85,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(Session session, @RequestBody MemberDto memberDto) {
+    public ResponseEntity<?> login(@RequestBody MemberDto memberDto) {
         ResponseDto<MemberDto> responseDto = new ResponseDto<>();
 
         try {
@@ -107,4 +104,38 @@ public class MemberController {
             return ResponseEntity.internalServerError().body(responseDto);
         }
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout() {
+        ResponseDto<Map<String, String>> responseDto = new ResponseDto<>();
+
+        try {
+            Map<String, String> logoutMsgMap = new HashMap<>();
+
+            SecurityContext securityContext = SecurityContextHolder.getContext();
+            securityContext.setAuthentication(null);
+            SecurityContextHolder.setContext(securityContext);
+
+            logoutMsgMap.put("logoutMsg", "logout success");
+
+            responseDto.setStatusCode(200);
+            responseDto.setStatusMessage("ok");
+            responseDto.setItem(logoutMsgMap);
+
+            return ResponseEntity.ok(responseDto);
+        } catch (Exception e) {
+            log.error("logout error: {}", e.getMessage());
+            responseDto.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            responseDto.setStatusMessage(e.getMessage());
+            return ResponseEntity.internalServerError().body(responseDto);
+        }
+    }
+
+
+
+
+
+
+
+
 }

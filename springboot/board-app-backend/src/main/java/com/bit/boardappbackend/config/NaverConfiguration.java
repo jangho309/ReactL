@@ -10,9 +10,9 @@ import org.springframework.context.annotation.PropertySource;
 @Getter
 public class NaverConfiguration {
     @Value("${ncp.accessKey}")
-    private String accesskey;
+    private String accessKey;
     @Value("${ncp.secretKey}")
-    private String secretkey;
+    private String secretKey;
     @Value("${ncp.regionName}")
     private String regionName;
     @Value("${ncp.endPoint}")

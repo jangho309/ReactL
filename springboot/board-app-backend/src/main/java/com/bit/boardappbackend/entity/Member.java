@@ -19,8 +19,8 @@ import lombok.*;
 public class Member {
     @Id
     @GeneratedValue(
-            generator = "memberSeqGenerator",
-            strategy = GenerationType.SEQUENCE
+            strategy = GenerationType.SEQUENCE,
+            generator = "memberSeqGenerator"
     )
     private Long id;
     @Column(unique = true)
@@ -32,7 +32,7 @@ public class Member {
     private String tel;
     private String role;
 
-    public MemberDto toDto(){
+    public MemberDto toDto() {
         return MemberDto.builder()
                 .id(this.id)
                 .username(this.username)
@@ -43,4 +43,13 @@ public class Member {
                 .role(this.role)
                 .build();
     }
+
+
+
+
+
+
+
+
+
 }

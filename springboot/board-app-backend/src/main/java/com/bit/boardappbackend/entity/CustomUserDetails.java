@@ -19,6 +19,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
+
         auths.add(
                 new GrantedAuthority() {
                     @Override
@@ -27,6 +28,7 @@ public class CustomUserDetails implements UserDetails {
                     }
                 }
         );
+
         return auths;
     }
 

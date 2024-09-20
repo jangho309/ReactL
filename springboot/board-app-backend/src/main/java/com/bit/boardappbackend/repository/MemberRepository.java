@@ -1,6 +1,5 @@
 package com.bit.boardappbackend.repository;
 
-import com.bit.boardappbackend.dto.MemberDto;
 import com.bit.boardappbackend.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,7 +10,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     long countByUsername(String username);
 
-    long countByNickname(String nickname);
-
-    MemberDto findByUsernameAndPassword(String username, String password);
+    long countByNickname(java.lang.String nickname);
 }

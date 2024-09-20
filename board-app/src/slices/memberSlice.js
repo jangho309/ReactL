@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { join, login } from '../apis/memberApis';
+import { join, login, logout } from '../apis/memberApis';
 
 const memberSlice = createSlice({
     name: 'members',
@@ -24,7 +24,6 @@ const memberSlice = createSlice({
             alert('에러가 발생했습니다.');
             return state;
         });
-
         builder.addCase(login.fulfilled, (state, action) => {
             alert(`${action.payload.username}님 환영합니다.`);
             sessionStorage.setItem('ACCESS_TOKEN', action.payload.token);
@@ -34,20 +33,35 @@ const memberSlice = createSlice({
                 isLogin: true,
                 id: action.payload.id,
                 username: action.payload.username,
-                nickname: action.payload.nickname
+                nickname: action.payload.nickname,
             };
         });
         builder.addCase(login.rejected, (state, action) => {
-            if(action.payload.response.data.statusMessage === 'username not exist'){
+            if(action.payload.response.data.statusMessage === 'username not exist') {
                 alert("존재하지 않는 아이디입니다.");
                 return state;
             }
-            
-            if(action.payload.response.data.statusMessage === 'wrong password'){
+
+            if(action.payload.response.data.statusMessage === 'wrong password') {
                 alert("잘못된 비밀번호입니다.");
                 return state;
             }
 
+            return state;
+        });
+        builder.addCase(logout.fulfilled, (state, action) => {
+            alert("로그아웃 완료.");
+            sessionStorage.removeItem("ACCESS_TOKEN");
+            
+            return {
+                ...state,
+                isLogin: false,
+                id: 0,
+                username: '',
+            }
+        });
+        builder.addCase(logout.rejected, (state, action) => {
+            alert("에러가 발생했습니다.");
             return state;
         });
     }

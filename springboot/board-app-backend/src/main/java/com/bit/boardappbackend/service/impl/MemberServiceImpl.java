@@ -25,11 +25,11 @@ public class MemberServiceImpl implements MemberService {
 
         long usernameCheck = memberRepository.countByUsername(username);
 
-        if(usernameCheck == 0) {
+        if(usernameCheck == 0)
             userCheckMsgMap.put("usernameCheckMsg", "available username");
-        } else {
+        else
             userCheckMsgMap.put("usernameCheckMsg", "invalid username");
-        }
+
         return userCheckMsgMap;
     }
 
@@ -39,11 +39,11 @@ public class MemberServiceImpl implements MemberService {
 
         long nicknameCheck = memberRepository.countByNickname(nickname);
 
-        if(nicknameCheck == 0) {
+        if(nicknameCheck == 0)
             nicknameCheckMsgMap.put("nicknameCheckMsg", "available nickname");
-        } else {
+        else
             nicknameCheckMsgMap.put("nicknameCheckMsg", "invalid nickname");
-        }
+
         return nicknameCheckMsgMap;
     }
 
@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
         memberDto.setRole("ROLE_USER");
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
-        MemberDto joinedMemberDto = memberRepository.save(memberDto.toEntity()).toDto();
+        MemberDto joinedMemberDto = memberRepository.save(memberDto.toEntiy()).toDto();
 
         joinedMemberDto.setPassword("");
 

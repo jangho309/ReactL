@@ -35,15 +35,29 @@ public class SecurityConfiguration {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> {
                     httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
-                .authorizeRequests(authorizationManagerRequestMatcherRegistry -> {
+                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers(
                             "/members/username-check",
                             "/members/nickname-check",
                             "/members/join",
                             "/members/login").permitAll();
+                    authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
 //                    authorizationManagerRequestMatcherRegistry.requestMatchers("/members/nickname-check").permitAll();
                 })
                 .addFilterAt(jwtAuthenticationFilter, CorsFilter.class)
                 .build();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
